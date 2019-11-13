@@ -2,7 +2,7 @@
   {
     "Id": 1,
     "Name": "Pedro",
-    "LastName": "Almeida",
+    "LastName": "Carvalho",
     "Phone": "25696969",
     "Registry": 5306320
   },
@@ -26,12 +26,5 @@
     "LastName": "Barbosa",
     "Phone": "3456961",
     "Registry": 5329320
-  },
-  {
-    "Id": 5,
-    "Name": "Paula",
-    "LastName": "Carrara",
-    "Phone": "25696978",
-    "Registry": 5301320
   }
 ]
