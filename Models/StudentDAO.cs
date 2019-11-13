@@ -11,6 +11,7 @@ namespace webApp.Models
     public class StudentDAO
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["DevConnection"].ConnectionString;
+        //string connectionString = ConfigurationManager.AppSettings["ConnectionString"];
         private IDbConnection connection;
 
         public StudentDAO()
@@ -71,5 +72,34 @@ namespace webApp.Models
 
             createCmd.ExecuteNonQuery();
         }
+
+        public Student UpdateStudentBD(int id, Student student)
+        {
+            var studentsList = new List<Student>();
+
+            IDbCommand updateCmd = connection.CreateCommand();
+            updateCmd.CommandText = "UPDATE Students SET Name = @Name, LastName = @LastName, Phone = @Phone, Registry = @Registry WHERE Id = @Id";
+
+            IDbDataParameter paramId = new SqlParameter("id", student.Id);
+            updateCmd.Parameters.Add(paramId);
+
+            IDbDataParameter paramName = new SqlParameter("Name", student.Name);
+            updateCmd.Parameters.Add(paramName);
+
+            IDbDataParameter paramLastName = new SqlParameter("LastName", student.LastName);
+            updateCmd.Parameters.Add(paramLastName);
+
+            IDbDataParameter paramPhone = new SqlParameter("Phone", student.Phone);
+            updateCmd.Parameters.Add(paramPhone);
+
+            IDbDataParameter paramRegistry = new SqlParameter("Registry", student.Registry);
+            updateCmd.Parameters.Add(paramRegistry);
+
+            updateCmd.ExecuteNonQuery();
+
+            return student;
+        }
+
+
     }
 }

@@ -60,27 +60,21 @@ namespace webApp.Models
             }
         }
 
-        // Atualizar
-        public Student UpdateStudent(int id, Student Student)
+        public Student UpdateStudent(int id, Student student)
         {
-            var studentsList = this.ReadStudent();
-
-            var itemIndex = studentsList.FindIndex(s => s.Id == id);
-            if(itemIndex >= 0)
+            try
             {
-                Student.Id = id;
-                studentsList[itemIndex] = Student;
+                var studentBD = new StudentDAO();
+                studentBD.UpdateStudentBD(id, student);
             }
-            else
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception($"An error ocurred while trying to update Students: Error => {ex.Message}");
             }
 
-            RewriteFile(studentsList);
-            return Student;
+            return student;
         }
 
-        // Deletar
         public bool DeleteStudent(int id)
         {
             var studentsList = this.ReadStudent();
