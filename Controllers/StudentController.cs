@@ -15,7 +15,7 @@ namespace webApp.Controllers
         // GET: api/Student
         [HttpGet]
         [Route("Recover")]
-        [Authorize]
+        [Authorize(Roles = Funcao.Professor)]
         public IHttpActionResult Recover()
         {
             try
