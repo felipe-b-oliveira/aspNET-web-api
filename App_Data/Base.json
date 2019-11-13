@@ -4,6 +4,7 @@
     "Name": "Pedro",
     "LastName": "Carvalho",
     "Phone": "25696969",
+    "Date":  "2001-10",
     "Registry": 5306320
   },
   {
@@ -11,6 +12,7 @@
     "Name": "Thiago",
     "LastName": "Oliveira",
     "Phone": "34566969",
+    "Date": "2002-11",
     "Registry": 5309320
   },
   {
@@ -18,6 +20,7 @@
     "Name": "Joao",
     "LastName": "Villas Boas",
     "Phone": "34566876",
+    "Date": "2003-12",
     "Registry": 5359320
   },
   {
@@ -25,6 +28,7 @@
     "Name": "Marta",
     "LastName": "Barbosa",
     "Phone": "3456961",
+    "Date": "1996-02",
     "Registry": 5329320
   },
   {
@@ -32,6 +36,7 @@
     "Name": "Felipe",
     "LastName": "Villas Boas",
     "Phone": "27723590",
+    "Date": "1998-06",
     "Registry": 5205212
   }
 ]

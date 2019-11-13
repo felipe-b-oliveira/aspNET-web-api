@@ -67,12 +67,26 @@ function readStudents() {
     // Method open, assyncronous call
     xhr.open(`GET`, `https://localhost:44390/api/Student/`, true);
 
+    xhr.onerror = function () {
+        console.log('ERRO', xhr.readyState);
+    }
+
     // Creating anonymous function
-    xhr.onload = function () {
-        var students = JSON.parse(this.responseText);
-        for (var index in students) {
-            createLine(students[index]);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                var students = JSON.parse(this.responseText);
+                for (var index in students) {
+                    createLine(students[index]);
+                }
+            }
+            else if (this.status == 500) {
+                var erro = JSON.parse(this.responseText);
+                console.log(erro.Message);
+                console.log(erro.ExceptionMessage);
+            }
         }
+
     }
 
     // AJAX call

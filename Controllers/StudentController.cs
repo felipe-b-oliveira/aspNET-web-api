@@ -11,22 +11,32 @@ namespace webApp.Controllers
 {
     // Liberar o acesso para o teste de funcionamento da API
     [EnableCors("*", "*", "*")]
-
+    [RoutePrefix("api/Student")]
     public class StudentController : ApiController
     {
         // GET: api/Student
-        public IEnumerable<Student> Get()
+        [HttpGet]
+        [Route("Recover")]
+        public IHttpActionResult Recover()
         {
-            Student student = new Student();
+            try
+            {
+                Student student = new Student();
+                return Ok(student.ReadStudent());
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
 
-            return student.ReadStudent();
         }
 
         // GET: api/Student/5
+        [HttpGet]
+        [Route("Recover/{Id}")]
         public Student Get(int id)
         {
             Student student = new Student();
-
             return student.ReadStudent().Where(x => x.Id == id).FirstOrDefault();
         }
 

@@ -14,6 +14,7 @@ namespace webApp.Models
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
+        public string Date { get; set; }
         public int Registry { get; set; }
 
         // Listar
