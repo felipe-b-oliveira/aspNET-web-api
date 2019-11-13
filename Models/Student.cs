@@ -23,54 +23,17 @@ namespace webApp.Models
         // Listar
         public List<Student> ReadStudent()
         {
-            var filePath = HostingEnvironment.MapPath(@"~/App_Data\Base.json");
-            var json = File.ReadAllText(filePath);
-            var studentsList = JsonConvert.DeserializeObject<List<Student>>(json);
-
-            return studentsList;
-        }
-
-
-        // Listar DB
-        public List<Student> ReadStudentsDB()
-        {
-
-            // Variaveis de conexão ao banco
-            //string connectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            string connectionString = ConfigurationManager.ConnectionStrings["DevConnection"].ConnectionString;
-            IDbConnection connection;
-            
-            connection = new SqlConnection(connectionString);
-            // Abre a conexão
-            connection.Open();
-
-            var studentsList = new List<Student>();
-
-            // Cria o comando
-            IDbCommand selectCmd = connection.CreateCommand();
-            selectCmd.CommandText = "SELECT * FROM Students";
-
-            // Executa o comando
-            IDataReader result = selectCmd.ExecuteReader();
-            while(result.Read())
+            try
             {
-                var std = new Student();
-
-                std.Id = Convert.ToInt32(result["Id"]);
-                std.Name = Convert.ToString(result["Name"]);
-                std.LastName = Convert.ToString(result["LastName"]);
-                std.Phone = Convert.ToString(result["Phone"]);
-                std.Registry = Convert.ToInt32(result["Registry"]);
-
-                studentsList.Add(std);
+                var studentBD = new StudentDAO();
+                return studentBD.ReadStudentsDB();
             }
-
-            // Fecha a conexao
-            connection.Close();
-
-            return studentsList;
+            catch (Exception ex)
+            {
+                throw new Exception($"An error ocurred while trying to list Students: Error = {ex.Message}");
+            }
         }
-
+        
         // Sobrescrever
         public bool RewriteFile(List<Student> studentsList)
         {

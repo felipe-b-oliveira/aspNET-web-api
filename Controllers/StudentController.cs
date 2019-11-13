@@ -24,7 +24,7 @@ namespace webApp.Controllers
                 Student student = new Student();
 
                 // return Ok(student.ReadStudent());
-                return Ok(student.ReadStudentsDB());
+                return Ok(student.ReadStudent());
             }
             catch (Exception ex)
             {
