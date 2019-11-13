@@ -26,19 +26,5 @@
     "LastName": "Barbosa",
     "Phone": "3456961",
     "Registry": 5329320
-  },
-  {
-    "Id": 5,
-    "Name": "Renata",
-    "LastName": "Abreu",
-    "Phone": "45678767",
-    "Registry": 5306210
-  },
-  {
-    "Id": 6,
-    "Name": "Teste",
-    "LastName": "Testeteste",
-    "Phone": "25696968",
-    "Registry": 19
   }
 ]
