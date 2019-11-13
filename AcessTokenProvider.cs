@@ -14,15 +14,19 @@ namespace webApp
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var usuario = BaseUsuarios.Usuarios().FirstOrDefault(x => x.Nome == context.UserName && x.Senha == context.Password);
+            var usuario = BaseUsuarios
+                .Usuarios()
+                .FirstOrDefault(x => x.Nome == context.UserName && x.Senha == context.Password);
 
             if (usuario == null)
             {
                 context.SetError("invalid_grant", "Usuário não encontrado ou senha incorreta");
             }
-
-            var identidadeUsuario = new ClaimsIdentity(context.Options.AuthenticationType);
-            context.Validated(identidadeUsuario);
+            else
+            {
+                var identidadeUsuario = new ClaimsIdentity(context.Options.AuthenticationType);
+                context.Validated(identidadeUsuario);
+            }
 
         }
     }

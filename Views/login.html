@@ -51,11 +51,28 @@
 
             xhr.onload = function () {
                 var resultado = JSON.parse(this.responseText);
-                sessionStorage.setItem('token', `${resultado.token_type} ${resultado.access_token}`);
-                verificar();
+
+                if (resultado.error != 'invalid_grant') {
+
+                    sessionStorage.setItem('token', `${resultado.token_type} ${resultado.access_token}`);
+                    verificar();
+
+                }
+                else {
+
+                    alert(resultado.error_description);
+                    document.getElementById('Nome').value = '';
+                    document.getElementById('Senha').value = '';
+
+                    //Nome.value = '';
+                    //Senha.value = '';
+
+                }
+
+
             }
 
-            xhr.send(`grant_type=password&Nome=${Nome}&Senha=${Senha}`);
+            xhr.send(`grant_type=password&UserName=${Nome}&Password=${Senha}`);
 
         }
 
@@ -66,9 +83,9 @@
             // Method open, assyncronous call
             xhr.open(`GET`, `https://localhost:44390/api/Student/Recover`, true);
             xhr.setRequestHeader('Authorization', sessionStorage.getItem('token'));
-            
+
             xhr.onerror = function () {
-                console.log('ERRO', xhr.readyState);
+                console.error('ERRO', xhr.readyState);
             }
 
             // Creating anonymous function
