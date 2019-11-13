@@ -1,0 +1,30 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Pedro",
+    "LastName": "Almeida",
+    "Phone": "25696969",
+    "Registry": 5306320
+  },
+  {
+    "Id": 2,
+    "Name": "Thiago",
+    "LastName": "Oliveira",
+    "Phone": "34566969",
+    "Registry": 5309320
+  },
+  {
+    "Id": 3,
+    "Name": "Joao",
+    "LastName": "Villas Boas",
+    "Phone": "34566876",
+    "Registry": 5359320
+  },
+  {
+    "Id": 4,
+    "Name": "Marta",
+    "LastName": "Barbosa",
+    "Phone": "3456961",
+    "Registry": 5329320
+  }
+]
