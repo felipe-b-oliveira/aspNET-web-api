@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,10 +15,10 @@
         <form class="form-signin" onsubmit="login()">
             <h2 class="form-signin-heading">Acadêmico</h2>
 
-            <label for="email" class="sr-only">E-mail</label>
-            <input type="text" id="email" class="form-control" placeholder="e-mail" required="" autofocus="">
-            <label for="password" class="sr-only">Senha</label>
-            <input type="password" id="password" class="form-control" placeholder="Senha" required="">
+            <label for="Nome" class="sr-only">Nome</label>
+            <input type="text" id="Nome" class="form-control" placeholder="Nome" required="" autofocus="">
+            <label for="Senha" class="sr-only">Senha</label>
+            <input type="password" id="Senha" class="form-control" placeholder="Senha" required="">
 
             <div class="checkbox">
                 <label>
@@ -32,16 +31,31 @@
     </div>
 
     <script>
-        
-        var login = function() {
+        var login = function () {
+            event.preventDefault();
+
+            var Nome = document.querySelector('#Nome').value;
+            var Senha = document.querySelector('#Senha').value;
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'https://localhost:44390/token', true)
+            xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+
+            xhr.send(`grant_type=password&Nome=${Nome}&Senha=${Senha}`);
+
+            xhr.onload = function () {
+                var resultado = this.responseText;
+                console.log(resultado);
+            }
+
+            
 
         }
 
-        var verificar = function() {
+        var verificar = function () {
 
         }
-        
     </script>
-
 </body>
 </html>

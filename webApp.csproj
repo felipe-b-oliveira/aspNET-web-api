@@ -117,8 +117,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Docs\SQLQuery1.sql" />
     <Content Include="Views\index.html" />
+    <Content Include="Views\login.html" />
     <Content Include="Web.config" />
+    <Content Include="wwwroot\css\login.css" />
     <Content Include="wwwroot\css\style.css" />
     <Content Include="wwwroot\js\bootbox.all.js" />
     <Content Include="wwwroot\js\bootbox.all.min.js" />

@@ -11,7 +11,7 @@ namespace webApp
         {
             return new List<Usuario>
             {
-                new Usuario { Nome = "Fulano", Senha = "123456"},
+                new Usuario { Nome = "Fulano", Senha = "123"},
                 new Usuario { Nome = "Beltrano", Senha = "123456"},
                 new Usuario { Nome = "Sicrano", Senha = "123456"},
             };
