@@ -31,6 +31,13 @@
     </div>
 
     <script>
+
+        (() => {
+            if (sessionStorage.getItem('token') != null) {
+                window.location.href = "https://localhost:44390/views/index.html";
+            }
+        })()
+
         var login = function () {
             event.preventDefault();
 
