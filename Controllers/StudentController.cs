@@ -21,7 +21,7 @@ namespace webApp.Controllers
         {
             try
             {
-                Student student = new Student();
+                StudentModel student = new StudentModel();
 
                 // return Ok(student.ReadStudent());
                 return Ok(student.ReadStudent());
@@ -36,20 +36,33 @@ namespace webApp.Controllers
         // GET: api/Student/5
         [HttpGet]
         [Route("Recover/{Id}")]
-        public Student Get(int id)
+        public IHttpActionResult RecoverById(int id)
         {
-            Student student = new Student();
+            try
+            {
+                StudentModel student = new StudentModel();
+                return Ok(student.ReadStudent(id).FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
 
-            return student.ReadStudent(id).FirstOrDefault();
+                return InternalServerError(ex);
+            }
+
         }
 
         [HttpPost]
         // POST: api/Student
-        public IHttpActionResult Post(Student student)
+        public IHttpActionResult Post(StudentDTO student)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
-                Student _student = new Student();
+                StudentModel _student = new StudentModel();
                 _student.CreateStudent(student);
                 return Ok(_student.ReadStudent());
             }
@@ -63,13 +76,14 @@ namespace webApp.Controllers
 
         [HttpPut]
         // PUT: api/Student/5
-        public IHttpActionResult Put(int id, [FromBody]Student student)
+        public IHttpActionResult Put(int id, [FromBody]StudentDTO student)
         {
             try
             {
-                Student _student = new Student();
-                _student.Id = id;
+                StudentModel _student = new StudentModel();
+                student.Id = id;
                 _student.UpdateStudent(student);
+
                 return Ok(_student.ReadStudent(id).FirstOrDefault());
             }
             catch (Exception ex)
@@ -86,7 +100,7 @@ namespace webApp.Controllers
         {
             try
             {
-                Student _student = new Student();
+                StudentModel _student = new StudentModel();
                 _student.DeleteStudent(id);
                 return Ok("Student successfully deleted");
             }

@@ -21,9 +21,9 @@ namespace webApp.Models
         }
 
         // Listar DB
-        public List<Student> ReadStudentsDB(int? id = null)
+        public List<StudentDTO> ReadStudentsDB(int? id = null)
         {
-            var studentsList = new List<Student>();
+            var studentsList = new List<StudentDTO>();
 
             try
             {
@@ -41,7 +41,7 @@ namespace webApp.Models
                 IDataReader result = selectCmd.ExecuteReader();
                 while (result.Read())
                 {
-                    var std = new Student
+                    var std = new StudentDTO
                     {
                         Id = Convert.ToInt32(result["Id"]),
                         Name = Convert.ToString(result["Name"]),
@@ -70,7 +70,7 @@ namespace webApp.Models
 
 
         // Inserir DB
-        public void CreateStudentsDB(Student student)
+        public void CreateStudentsDB(StudentDTO student)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace webApp.Models
             }
         }
 
-        public Student UpdateStudentBD(Student student)
+        public StudentDTO UpdateStudentBD(StudentDTO student)
         {
             try
             {

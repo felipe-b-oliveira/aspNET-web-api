@@ -123,7 +123,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentDTO.cs" />
+    <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\StudentDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
