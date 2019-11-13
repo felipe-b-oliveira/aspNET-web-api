@@ -42,19 +42,36 @@
             xhr.open('POST', 'https://localhost:44390/token', true)
             xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
 
-            xhr.send(`grant_type=password&Nome=${Nome}&Senha=${Senha}`);
-
             xhr.onload = function () {
-                var resultado = this.responseText;
-                console.log(resultado);
+                var resultado = JSON.parse(this.responseText);
+                console.log(`${resultado.token_type} ${resultado.access_token}`);
+                verificar(`${resultado.token_type} ${resultado.access_token}`);
             }
 
-            
+            xhr.send(`grant_type=password&Nome=${Nome}&Senha=${Senha}`);
 
         }
 
-        var verificar = function () {
+        var verificar = function (auth) {
+            // Creating XML Http Request
+            var xhr = new XMLHttpRequest();
 
+            // Method open, assyncronous call
+            xhr.open(`GET`, `https://localhost:44390/api/Student/Recover`, true);
+            xhr.setRequestHeader('Authorization', auth);
+            
+            xhr.onerror = function () {
+                console.log('ERRO', xhr.readyState);
+            }
+
+            // Creating anonymous function
+            xhr.onreadystatechange = function () {
+                var result = this.responseText;
+                document.write(result);
+            }
+
+            // AJAX call
+            xhr.send();
         }
     </script>
 </body>
