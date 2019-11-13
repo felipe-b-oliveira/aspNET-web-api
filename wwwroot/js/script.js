@@ -65,7 +65,7 @@ function readStudents() {
     var xhr = new XMLHttpRequest();
 
     // Method open, assyncronous call
-    xhr.open(`GET`, `https://localhost:44390/api/Student/`, true);
+    xhr.open(`GET`, `https://localhost:44390/api/Student/Recover`, true);
 
     xhr.onerror = function () {
         console.log('ERRO', xhr.readyState);
