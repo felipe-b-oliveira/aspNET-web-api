@@ -30,7 +30,7 @@ namespace webApp.Models
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error ocurred while trying to list Students: Error = {ex.Message}");
+                throw new Exception($"An error ocurred while trying to list Students: Error => {ex.Message}");
             }
         }
         
@@ -47,16 +47,17 @@ namespace webApp.Models
         }
 
         // Inserir
-        public Student CreateStudent(Student Student)
+        public void CreateStudent(Student student)
         {
-            var studentsList = this.ReadStudent();
-
-            var maxId = studentsList.Max(s => s.Id);
-            Student.Id = maxId + 1;
-            studentsList.Add(Student);
-
-            RewriteFile(studentsList);
-            return Student;
+            try
+            {
+                var studentBD = new StudentDAO();
+                studentBD.CreateStudentsDB(student);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error ocurred while trying to insert Students: Error => {ex.Message}");
+            }
         }
 
         // Atualizar

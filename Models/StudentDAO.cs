@@ -48,5 +48,28 @@ namespace webApp.Models
 
             return studentsList;
         }
+
+
+        // Inserir DB
+        public void CreateStudentsDB(Student student)
+        {
+            // Cria o comando
+            IDbCommand createCmd = connection.CreateCommand();
+            createCmd.CommandText = "INSERT INTO Students (Name, LastName, Phone, Registry) VALUES (@Name, @LastName, @Phone, @Registry)";
+
+            IDbDataParameter paramName = new SqlParameter("Name", student.Name);
+            createCmd.Parameters.Add(paramName);
+
+            IDbDataParameter paramLastName = new SqlParameter("LastName", student.LastName);
+            createCmd.Parameters.Add(paramLastName);
+
+            IDbDataParameter paramPhone = new SqlParameter("Phone", student.Phone);
+            createCmd.Parameters.Add(paramPhone);
+
+            IDbDataParameter paramRegistry = new SqlParameter("Registry", student.Registry);
+            createCmd.Parameters.Add(paramRegistry);
+
+            createCmd.ExecuteNonQuery();
+        }
     }
 }
