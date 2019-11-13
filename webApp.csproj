@@ -122,7 +122,10 @@
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
     <Content Include="Docs\SQLQuery1.sql" />
+    <Content Include="Views\aluno.html" />
+    <Content Include="Views\disciplina.html" />
     <Content Include="Views\index.html" />
+    <Content Include="Views\index2.html" />
     <Content Include="Views\login.html" />
     <Content Include="Web.config" />
     <Content Include="wwwroot\css\login.css" />
@@ -148,6 +151,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BaseUsuarios.cs" />
+    <Compile Include="Controllers\DisciplineController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

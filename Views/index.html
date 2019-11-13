@@ -9,7 +9,7 @@
     <link rel="icon"
           type="image/png"
           href="https://localhost:44390/wwwroot/global.png" />
-    <title>Document</title>
+    <title>College Web API</title>
     <link href="/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/wwwroot/css/style.css">
 </head>
@@ -112,13 +112,30 @@
             var menu = document.querySelector('#menu');
 
             if (sessionStorage.getItem('token') != null) {
+
+                /*
+                if () {
+
+                    menu.innerHTML = `
+                    <li><a href="#disciplina">Disciplina</a></li>
+                    ` 
+                }
+                else {
+
+                    menu.innerHTML = `
+                    <li class="active"><a href="#">Aluno</a></li>
+                    `
+                }
+                */
+
                 menu.innerHTML = `
                     <li class="active"><a href="#">Aluno</a></li>
-                        <li><a href="#about">Disciplina</a></li>
+                    <li><a href="#disciplina">Disciplina</a></li>
                     `
 
                 statusLogin.innerHTML = `<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionStorage.getItem('username')}
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false">${sessionStorage.getItem('username')}
                         <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Perfil</a></li>
