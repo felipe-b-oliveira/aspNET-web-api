@@ -29,9 +29,7 @@
                 <a class="navbar-brand" href="#">Acadêmico</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <!-- <li class="active"><a href="#">Aluno</a></li>
-                    <li><a href="#about">Disciplina</a></li> -->
+                <ul id="menu" class="nav navbar-nav">
                 </ul>
                 <ul id="statusLogin" class="nav navbar-nav navbar-right">
                 </ul>
@@ -111,17 +109,24 @@
 
         (() => {
             var statusLogin = document.querySelector('#statusLogin');
+            var menu = document.querySelector('#menu');
+
             if (sessionStorage.getItem('token') != null) {
+                menu.innerHTML = `
+                    <li class="active"><a href="#">Aluno</a></li>
+                        <li><a href="#about">Disciplina</a></li>
+                    `
+
                 statusLogin.innerHTML = `<li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fulano
-                    <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Perfil</a></li>
-                            <li><a href="#">Configuração</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#" onclick="logout()">Sair</a></li>
-                        </ul>
-                    </li >`
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionStorage.getItem('username')}
+                        <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Perfil</a></li>
+                                <li><a href="#">Configuração</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#" onclick="logout()">Sair</a></li>
+                            </ul>
+                        </li >`
             }
             else {
                 statusLogin.innerHTML = `<li><a href="https://localhost:44390/views/login.html">Entrar</a></li>`;

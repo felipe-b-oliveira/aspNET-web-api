@@ -51,25 +51,21 @@
 
             xhr.onload = function () {
                 var resultado = JSON.parse(this.responseText);
+                console.log(resultado);
 
                 if (resultado.error != 'invalid_grant') {
-
                     sessionStorage.setItem('token', `${resultado.token_type} ${resultado.access_token}`);
-                    verificar();
+                    sessionStorage.setItem('username', `${resultado.Username}`);
 
+                    verificar();
                 }
                 else {
-
                     alert(resultado.error_description);
                     document.getElementById('Nome').value = '';
                     document.getElementById('Senha').value = '';
-
                     //Nome.value = '';
                     //Senha.value = '';
-
                 }
-
-
             }
 
             xhr.send(`grant_type=password&username=${Nome}&password=${Senha}`);
