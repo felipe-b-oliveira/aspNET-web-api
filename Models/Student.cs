@@ -21,12 +21,12 @@ namespace webApp.Models
         public int Registry { get; set; }
 
         // Listar
-        public List<Student> ReadStudent()
+        public List<Student> ReadStudent(int? id = null)
         {
             try
             {
                 var studentBD = new StudentDAO();
-                return studentBD.ReadStudentsDB();
+                return studentBD.ReadStudentsDB(id);
             }
             catch (Exception ex)
             {
@@ -60,37 +60,31 @@ namespace webApp.Models
             }
         }
 
-        public Student UpdateStudent(int id, Student student)
+        public void UpdateStudent(Student student)
         {
             try
             {
                 var studentBD = new StudentDAO();
-                studentBD.UpdateStudentBD(id, student);
+                studentBD.UpdateStudentBD(student);
             }
             catch (Exception ex)
             {
                 throw new Exception($"An error ocurred while trying to update Students: Error => {ex.Message}");
             }
 
-            return student;
         }
 
-        public bool DeleteStudent(int id)
+        public void DeleteStudent(int id)
         {
-            var studentsList = this.ReadStudent();
-
-            var itemIndex = studentsList.FindIndex(s => s.Id == id);
-            if (itemIndex >= 0)
+            try
             {
-                studentsList.RemoveAt(itemIndex);
+                var studentBD = new StudentDAO();
+                studentBD.DeleteStudentBD(id);
             }
-            else
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception($"An error ocurred while trying to delete Students: Error => {ex.Message}");
             }
-
-            RewriteFile(studentsList);
-            return true;
         }
 
     }

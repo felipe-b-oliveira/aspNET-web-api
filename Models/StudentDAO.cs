@@ -21,85 +21,151 @@ namespace webApp.Models
         }
 
         // Listar DB
-        public List<Student> ReadStudentsDB()
+        public List<Student> ReadStudentsDB(int? id = null)
         {
             var studentsList = new List<Student>();
 
-            // Cria o comando
-            IDbCommand selectCmd = connection.CreateCommand();
-            selectCmd.CommandText = "SELECT * FROM Students";
-
-            // Executa o comando
-            IDataReader result = selectCmd.ExecuteReader();
-            while (result.Read())
+            try
             {
-                var std = new Student();
+                // Cria o comando
+                IDbCommand selectCmd = connection.CreateCommand();
 
-                std.Id = Convert.ToInt32(result["Id"]);
-                std.Name = Convert.ToString(result["Name"]);
-                std.LastName = Convert.ToString(result["LastName"]);
-                std.Phone = Convert.ToString(result["Phone"]);
-                std.Registry = Convert.ToInt32(result["Registry"]);
+                if (id == null)
+                {
+                    selectCmd.CommandText = "SELECT * FROM Students";
+                }
+                else
+                    selectCmd.CommandText = $"SELECT * FROM Students WHERE Id = {id}";
 
-                studentsList.Add(std);
+                // Executa o comando
+                IDataReader result = selectCmd.ExecuteReader();
+                while (result.Read())
+                {
+                    var std = new Student
+                    {
+                        Id = Convert.ToInt32(result["Id"]),
+                        Name = Convert.ToString(result["Name"]),
+                        LastName = Convert.ToString(result["LastName"]),
+                        Phone = Convert.ToString(result["Phone"]),
+                        Registry = Convert.ToInt32(result["Registry"]),
+                    };
+
+                    studentsList.Add(std);
+                }
+
+                return studentsList;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                // Fecha a conexao
+                connection.Close();
             }
 
-            // Fecha a conexao
-            connection.Close();
-
-            return studentsList;
         }
 
 
         // Inserir DB
         public void CreateStudentsDB(Student student)
         {
-            // Cria o comando
-            IDbCommand createCmd = connection.CreateCommand();
-            createCmd.CommandText = "INSERT INTO Students (Name, LastName, Phone, Registry) VALUES (@Name, @LastName, @Phone, @Registry)";
+            try
+            {
+                // Cria o comando
+                IDbCommand createCmd = connection.CreateCommand();
+                createCmd.CommandText = "INSERT INTO Students (Name, LastName, Phone, Registry) VALUES (@Name, @LastName, @Phone, @Registry)";
 
-            IDbDataParameter paramName = new SqlParameter("Name", student.Name);
-            createCmd.Parameters.Add(paramName);
+                IDbDataParameter paramName = new SqlParameter("Name", student.Name);
+                createCmd.Parameters.Add(paramName);
 
-            IDbDataParameter paramLastName = new SqlParameter("LastName", student.LastName);
-            createCmd.Parameters.Add(paramLastName);
+                IDbDataParameter paramLastName = new SqlParameter("LastName", student.LastName);
+                createCmd.Parameters.Add(paramLastName);
 
-            IDbDataParameter paramPhone = new SqlParameter("Phone", student.Phone);
-            createCmd.Parameters.Add(paramPhone);
+                IDbDataParameter paramPhone = new SqlParameter("Phone", student.Phone);
+                createCmd.Parameters.Add(paramPhone);
 
-            IDbDataParameter paramRegistry = new SqlParameter("Registry", student.Registry);
-            createCmd.Parameters.Add(paramRegistry);
+                IDbDataParameter paramRegistry = new SqlParameter("Registry", student.Registry);
+                createCmd.Parameters.Add(paramRegistry);
 
-            createCmd.ExecuteNonQuery();
+                createCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                // Fecha a conexao
+                connection.Close();
+            }
         }
 
-        public Student UpdateStudentBD(int id, Student student)
+        public Student UpdateStudentBD(Student student)
         {
-            var studentsList = new List<Student>();
+            try
+            {
+                IDbCommand updateCmd = connection.CreateCommand();
+                updateCmd.CommandText = "UPDATE Students SET Name = @Name, LastName = @LastName, Phone = @Phone, Registry = @Registry WHERE id = @Id";
 
-            IDbCommand updateCmd = connection.CreateCommand();
-            updateCmd.CommandText = "UPDATE Students SET Name = @Name, LastName = @LastName, Phone = @Phone, Registry = @Registry WHERE Id = @Id";
+                IDbDataParameter paramId = new SqlParameter("id", student.Id);
+                updateCmd.Parameters.Add(paramId);
 
-            IDbDataParameter paramId = new SqlParameter("id", student.Id);
-            updateCmd.Parameters.Add(paramId);
+                IDbDataParameter paramName = new SqlParameter("Name", student.Name);
+                updateCmd.Parameters.Add(paramName);
 
-            IDbDataParameter paramName = new SqlParameter("Name", student.Name);
-            updateCmd.Parameters.Add(paramName);
+                IDbDataParameter paramLastName = new SqlParameter("LastName", student.LastName);
+                updateCmd.Parameters.Add(paramLastName);
 
-            IDbDataParameter paramLastName = new SqlParameter("LastName", student.LastName);
-            updateCmd.Parameters.Add(paramLastName);
+                IDbDataParameter paramPhone = new SqlParameter("Phone", student.Phone);
+                updateCmd.Parameters.Add(paramPhone);
 
-            IDbDataParameter paramPhone = new SqlParameter("Phone", student.Phone);
-            updateCmd.Parameters.Add(paramPhone);
+                IDbDataParameter paramRegistry = new SqlParameter("Registry", student.Registry);
+                updateCmd.Parameters.Add(paramRegistry);
 
-            IDbDataParameter paramRegistry = new SqlParameter("Registry", student.Registry);
-            updateCmd.Parameters.Add(paramRegistry);
+                updateCmd.ExecuteNonQuery();
 
-            updateCmd.ExecuteNonQuery();
+                return student;
+            }
+            catch (Exception ex)
+            {
 
-            return student;
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                // Fecha a conexao
+                connection.Close();
+            }
+
         }
 
+        public void DeleteStudentBD(int id)
+        {
+            try
+            {
+                IDbCommand deleteCmd = connection.CreateCommand();
+                deleteCmd.CommandText = "DELETE FROM Students WHERE Id = @id";
 
+                IDbDataParameter paramId = new SqlParameter("id", id);
+                deleteCmd.Parameters.Add(paramId);
+
+                deleteCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                // Fecha a conexao
+                connection.Close();
+            }
+
+        }
     }
 }
