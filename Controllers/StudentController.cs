@@ -39,32 +39,63 @@ namespace webApp.Controllers
         public Student Get(int id)
         {
             Student student = new Student();
-            return student.ReadStudent().Where(x => x.Id == id).FirstOrDefault();
+
+            return student.ReadStudent(id).FirstOrDefault();
         }
 
+        [HttpPost]
         // POST: api/Student
-        public List<Student> Post(Student student)
+        public IHttpActionResult Post(Student student)
         {
-            Student _student = new Student();
-            _student.CreateStudent(student);
+            try
+            {
+                Student _student = new Student();
+                _student.CreateStudent(student);
+                return Ok(_student.ReadStudent());
+            }
+            catch (Exception ex)
+            {
 
-            return _student.ReadStudent();
+                return InternalServerError(ex);
+            }
+
         }
 
+        [HttpPut]
         // PUT: api/Student/5
-        public Student Put(int id, [FromBody]Student student)
+        public IHttpActionResult Put(int id, [FromBody]Student student)
         {
-            Student _student = new Student();
+            try
+            {
+                Student _student = new Student();
+                _student.Id = id;
+                _student.UpdateStudent(student);
+                return Ok(_student.ReadStudent(id).FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
 
-            return _student.UpdateStudent(id, student);
+                return InternalServerError(ex);
+            }
+
         }
 
+        [HttpDelete]
         // DELETE: api/Student/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            Student _student = new Student();
+            try
+            {
+                Student _student = new Student();
+                _student.DeleteStudent(id);
+                return Ok("Student successfully deleted");
+            }
+            catch (Exception ex)
+            {
 
-            _student.DeleteStudent(id);
+                return InternalServerError(ex);
+
+            }
         }
     }
 }
