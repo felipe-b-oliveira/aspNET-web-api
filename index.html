@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div><label>Name: </label><input id="name" type="text"></div>
+    <div><label>Last Name: </label><input id="lastName" type="text"></div>
+    <div><label>Phone: </label><input id="phone" type="text"></div>
+    <div><label>Register: </label><input id="registry" type="text"></div>
+    <div>
+        <p></p>
+        <button onclick="createStudent()">Register</button>
+        <button>Clear</button>
+        <p></p>
+    </div>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Name:</td>
+                <td>Last Name:</td>
+                <td>Phone:</td>
+                <td>Registry:</td>
+                <td colspan="2" style="text-align: center;">Options</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        var tbody = document.querySelector('table tbody');
+
+        function createStudent() {
+            var _name = document.querySelector('#name').value;
+            var _lastName = document.querySelector('#lastName').value;
+            var _phone = document.querySelector('#phone').value;
+            var _registry = document.querySelector('#registry').value;
+
+            var student = {
+                name: _name,
+                lastName: _lastName,
+                phone: _phone,
+                registry: _registry
+            }
+            readStudent('POST', 0, student);
+        }
+
+        function readStudent(method, id, body) {
+
+            tbody.innerHTML = '';
+
+            // Creating XML Http Request
+            var xhr = new XMLHttpRequest();
+
+            if (id === undefined || id === 0)
+                id = '';
+
+            // Method open, assyncronous call
+            xhr.open(method, `https://localhost:44390/api/Student/${id}`, true);
+
+            // Creating anonymous function
+            xhr.onload = function () {
+                var students = JSON.parse(this.responseText);
+                for (var index in students) {
+                    createLine(students[index]);
+                }
+            }
+
+            if (body !== undefined) {
+                xhr.setRequestHeader('content-type', 'application/json');
+                xhr.send(JSON.stringify(body));
+            }
+            else {
+                // AJAX call
+                xhr.send();
+            }
+
+        }
+
+        readStudent('GET');
+
+        function editStudent(id) {
+            console.log(id);
+        }
+
+        function createLine(student) {
+
+            //var registry = student.Registry;
+
+            var trow = `<tr>
+                            <td>${student.Name}</td>
+                            <td>${student.LastName}</td>
+                            <td>${student.Phone}</td>
+                            <td>${student.Registry}</td>
+                            <td><button onclick='editStudent(${student.Id})'>Edit</button></td>
+                            <td><button onclick='deleteStudent(${student.Id})'>Delete</button></td>
+                        </tr>
+                        `
+            tbody.innerHTML += trow;
+        }
+
+        function deleteStudent() {
+
+        }
+
+        function updateStudent() {
+
+        }
+
+    </script>
+
+</body>
+
+</html>
