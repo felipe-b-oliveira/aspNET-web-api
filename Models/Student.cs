@@ -7,6 +7,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace webApp.Models
 {
@@ -35,10 +36,11 @@ namespace webApp.Models
         {
 
             // Variaveis de conexão ao banco
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Projetos\CSharp\dotnetlearning\webApp\App_Data\Database.mdf;Integrated Security=True";
+            //string connectionString = ConfigurationManager.AppSettings["ConnectionString"];
+            string connectionString = ConfigurationManager.ConnectionStrings["DevConnection"].ConnectionString;
             IDbConnection connection;
-            connection = new SqlConnection(connectionString);
             
+            connection = new SqlConnection(connectionString);
             // Abre a conexão
             connection.Open();
 
