@@ -1,19 +1,19 @@
 ﻿var tbody = document.querySelector('table tbody');
-var _student = {};
+var student = {};
 
 function Register() {
-    _student.Name = document.querySelector('#Name').value;
-    _student.LastName = document.querySelector('#LastName').value;
-    _student.Phone = document.querySelector('#Phone').value;
-    _student.Registry = document.querySelector('#Registry').value;
+    _student.name = document.querySelector('#Name').value;
+    _student.lastName = document.querySelector('#LastName').value;
+    _student.phone = document.querySelector('#Phone').value;
+    _student.registry = document.querySelector('#Registry').value;
 
     console.log(_student);
 
-    if (_student.Id === undefined || _student.Id === 0) {
+    if (_student.id === undefined || _student.id === 0) {
         saveStudents('POST', 0, _student);
     }
     else {
-        saveStudents('PUT', _student.Id, _student);
+        saveStudents('PUT', _student.id, _student);
     }
 
     readStudents();
@@ -65,10 +65,12 @@ function readStudents() {
     var xhr = new XMLHttpRequest();
 
     // Method open, assyncronous call
-    xhr.open(`GET`, `https://localhost:44390/api/Student/Recover`, true);
+    xhr.open(`GET`, `https://localhost:44390/api/Student/Recover `, true);
+    xhr.setRequestHeader('Authorization', sessionStorage.getItem('token'));
+
 
     xhr.onerror = function () {
-        console.log('ERRO', xhr.readyState);
+        console.error('ERRO', xhr.readyState);
     }
 
     // Creating anonymous function
@@ -98,16 +100,16 @@ function saveStudents(method, Id, body) {
     var xhr = new XMLHttpRequest();
 
     if (Id === undefined || Id === 0)
-        Id = '';
+        id = '';
 
     /* Method open, assyncronous call
     xhr.addEventListener("load", function () {
         initialArray = JSON.parse(xhr.response);
     }, false);
-    xhr.open(method, `https://localhost:44390/api/Student/${Id}`);*/
+    xhr.open(method, `https://localhost:44390/api/Student/${Id} `); */
 
     // Method open, syncronous call
-    xhr.open(method, `https://localhost:44390/api/Student/${Id}`, false);
+    xhr.open(method, `https://localhost:44390/api/Student/${Id} `, false);
 
     xhr.setRequestHeader('content-type', 'application/json');
     xhr.send(JSON.stringify(body));
@@ -126,7 +128,7 @@ function deleteStudent(Id) {
 function erase(student) {
 
     bootbox.confirm({
-        message: `Tem certeza de que deseja excluir ${student.Name}?`,
+        message: `Tem certeza de que deseja excluir ${student.name}?`,
         buttons: {
             confirm: {
                 label: 'Sim',
@@ -139,7 +141,7 @@ function erase(student) {
         },
         callback: function (result) {
             if (result) {
-                deleteStudent(student.Id);
+                deleteStudent(student.id);
                 readStudents();
             }
         }
@@ -152,14 +154,14 @@ readStudents();
 function editStudent(student) {
     var btnSave = document.querySelector('#btnSave');
     var modalTitle = document.querySelector('#modalTitle');
-    document.querySelector('#Name').value = student.Name;
-    document.querySelector('#LastName').value = student.LastName;
-    document.querySelector('#Phone').value = student.Phone;
-    document.querySelector('#Registry').value = student.Registry;
+    document.querySelector('#Name').value = student.name;
+    document.querySelector('#LastName').value = student.lastName;
+    document.querySelector('#Phone').value = student.phone;
+    document.querySelector('#Registry').value = student.registry;
 
     btnSave.textContent = "Salvar";
 
-    modalTitle.textContent = `Editar Aluno(a) ${student.Name}`;
+    modalTitle.textContent = `Editar Aluno(a) ${student.name}`;
 
     _student = student;
 
@@ -171,10 +173,10 @@ function createLine(student) {
     //var registry = student.Registry;
 
     var trow = `<tr>
-                    <td>${student.Name}</td>
-                    <td>${student.LastName}</td>
-                    <td>${student.Phone}</td>
-                    <td>${student.Registry}</td>
+                    <td>${student.name}</td>
+                    <td>${student.lastName}</td>
+                    <td>${student.phone}</td>
+                    <td>${student.registry}</td>
                     <td>
                         <button a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="btn btn-info" onclick='editStudent(${JSON.stringify(student)})'>Editar</button>
                         <button a href="javascript:void(0);" class="btn btn-danger" onclick='erase(${JSON.stringify(student)})'>Deletar</button>
