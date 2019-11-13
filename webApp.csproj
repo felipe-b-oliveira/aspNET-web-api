@@ -89,6 +89,13 @@
     <Content Include="Global.asax" />
     <Content Include="Views\index.html" />
     <Content Include="Web.config" />
+    <Content Include="wwwroot\css\style.css" />
+    <Content Include="wwwroot\js\bootbox.all.js" />
+    <Content Include="wwwroot\js\bootbox.all.min.js" />
+    <Content Include="wwwroot\js\bootbox.js" />
+    <Content Include="wwwroot\js\bootbox.locales.js" />
+    <Content Include="wwwroot\js\bootbox.locales.min.js" />
+    <Content Include="wwwroot\js\bootbox.min.js" />
     <Content Include="wwwroot\js\script.js" />
     <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css" />

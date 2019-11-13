@@ -6,46 +6,70 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <!-- Bootstrap -->
     <link href="/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="/wwwroot/css/style.css">
 </head>
 
 <body>
-    <h2 id="title">Register Student</h2>
-    <div><label>Name: </label><input id="Name" type="text"></div>
-    <div><label>Last Name: </label><input id="LastName" type="text"></div>
-    <div><label>Phone: </label><input id="Phone" type="text"></div>
-    <div><label>Register: </label><input id="Registry" type="text"></div>
-    <div>
-        <p></p>
-        <button id="btnSave" onclick="Register()">Register</button>
-        <button id="btnCancel" onclick="Cancel()">Clear</button>
-        <p></p>
+
+    <div class="container">
+
+        <div class="registrationHeader">
+            <h2 id="title">Cadastrar Aluno</h2>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary pull-right" onclick="novoAluno()">
+                Cadastrar
+            </button>
+            <hr />
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Nome:</td>
+                    <td>Sobrenome:</td>
+                    <td>Telefone:</td>
+                    <td>Matrícula:</td>
+                    <td>Opções</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <td>Name:</td>
-                <td>Last Name:</td>
-                <td>Phone:</td>
-                <td>Registry:</td>
-                <td colspan="2" style="text-align: center;">Options</td>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalTitle">Cadastrar Aluno</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group"><label>Nome: </label><input class="form-control" id="Name" type="text"></div>
+                    <div class="form-group"><label>Sobrenome: </label><input class="form-control" id="LastName" type="text"></div>
+                    <div class="form-group"><label>Telefone: </label><input class="form-control" id="Phone" type="text"></div>
+                    <div class="form-group"><label>Matrícula: </label><input class="form-control" id="Registry" type="text"></div>
+                    <div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="btnSave" onclick="Register()">Cadastrar</button>
+                    <button class="btn btn-default" id="btnCancel" onclick="Cancel()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="/wwwroot/js/script.js"></script>
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
+    <script src="/wwwroot/js/bootbox.min.js"></script>
 </body>
-
 </html>

@@ -17,12 +17,13 @@ function Register() {
     }
 
     readStudents();
+
+    $('#myModal').modal('hide')
 }
 
-function Cancel() {
+function novoAluno() {
     var btnSave = document.querySelector('#btnSave');
-    var btnCancel = document.querySelector('#btnCancel');
-    var title = document.querySelector('#title');
+    var modalTitle = document.querySelector('#modalTitle');
 
     document.querySelector('#Name').value = '';
     document.querySelector('#LastName').value = '';
@@ -31,10 +32,29 @@ function Cancel() {
 
     _student = {};
 
-    btnSave.textContent = "Register";
-    btnCancel.textContent = "Clear";
+    btnSave.textContent = "Cadastrar";
 
-    title.textContent = "Register Student";
+    modalTitle.textContent = "Cadastrar Aluno";
+
+    $('#myModal').modal('show')
+}
+
+function Cancel() {
+    var btnSave = document.querySelector('#btnSave');
+    var modalTitle = document.querySelector('#modalTitle');
+
+    document.querySelector('#Name').value = '';
+    document.querySelector('#LastName').value = '';
+    document.querySelector('#Phone').value = '';
+    document.querySelector('#Registry').value = '';
+
+    _student = {};
+
+    btnSave.textContent = "Cadastrar";
+
+    modalTitle.textContent = "Cadastrar Aluno";
+
+    $('#myModal').modal('hide')
 }
 
 function readStudents() {
@@ -89,26 +109,43 @@ function deleteStudent(Id) {
     xhr.send();
 }
 
-function erase(Id) {
-    deleteStudent(Id);
-    readStudents();
+function erase(student) {
+
+    bootbox.confirm({
+        message: `Tem certeza de que deseja excluir ${student.Name}?`,
+        buttons: {
+            confirm: {
+                label: 'Sim',
+                className: 'btn-success'
+            },
+            cancel: {
+                label: 'Não',
+                className: 'btn-danger'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                deleteStudent(student.Id);
+                readStudents();
+            }
+        }
+    });
+
 }
 
 readStudents();
 
 function editStudent(student) {
     var btnSave = document.querySelector('#btnSave');
-    var btnCancel = document.querySelector('#btnCancel');
-    var title = document.querySelector('#title');
+    var modalTitle = document.querySelector('#modalTitle');
     document.querySelector('#Name').value = student.Name;
     document.querySelector('#LastName').value = student.LastName;
     document.querySelector('#Phone').value = student.Phone;
     document.querySelector('#Registry').value = student.Registry;
 
-    btnSave.textContent = "Save";
-    btnCancel.textContent = "Cancel";
+    btnSave.textContent = "Salvar";
 
-    title.textContent = `Edit Student ${student.Nome}`;
+    modalTitle.textContent = `Editar Aluno(a) ${student.Name}`;
 
     _student = student;
 
@@ -120,13 +157,15 @@ function createLine(student) {
     //var registry = student.Registry;
 
     var trow = `<tr>
-                                <td>${student.Name}</td>
-                                <td>${student.LastName}</td>
-                                <td>${student.Phone}</td>
-                                <td>${student.Registry}</td>
-                                <td><button onclick='editStudent(${JSON.stringify(student)})'>Edit</button></td>
-                                <td><button onclick='erase(${student.Id})'>Delete</button></td>
-                            </tr>
-                            `
+                    <td>${student.Name}</td>
+                    <td>${student.LastName}</td>
+                    <td>${student.Phone}</td>
+                    <td>${student.Registry}</td>
+                    <td>
+                        <button a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="btn btn-info" onclick='editStudent(${JSON.stringify(student)})'>Editar</button>
+                        <button a href="javascript:void(0);" class="btn btn-danger" onclick='erase(${JSON.stringify(student)})'>Deletar</button>
+                    </td>
+                </tr>
+                `
     tbody.innerHTML += trow;
 }
