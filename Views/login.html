@@ -13,24 +13,35 @@
 <body>
 
     <div class="container">
-
-        <form class="form-signin">
+        <form class="form-signin" onsubmit="login()">
             <h2 class="form-signin-heading">Acadêmico</h2>
-            <label for="inputEmail" class="sr-only">E-mail</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="E-mail" required=""
-                autofocus="">
-            <label for="inputPassword" class="sr-only">Senha</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required="">
+
+            <label for="email" class="sr-only">E-mail</label>
+            <input type="text" id="email" class="form-control" placeholder="e-mail" required="" autofocus="">
+            <label for="password" class="sr-only">Senha</label>
+            <input type="password" id="password" class="form-control" placeholder="Senha" required="">
+
             <div class="checkbox">
                 <label>
                     <input type="checkbox" value="remember-me"> Lembre-me
                 </label>
             </div>
+
             <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
         </form>
-
     </div>
 
-</body>
+    <script>
+        
+        var login = function() {
 
+        }
+
+        var verificar = function() {
+
+        }
+        
+    </script>
+
+</body>
 </html>
