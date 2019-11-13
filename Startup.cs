@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using Swashbuckle.Application;
@@ -37,7 +38,24 @@ namespace webApp
 
             app.UseCors(CorsOptions.AllowAll);
 
+            ActivatingAcessTokens(app);
+
             app.UseWebApi(config);
+        }
+
+        private void ActivatingAcessTokens(IAppBuilder app)
+        {
+            var TokensConfigurationOptions = new OAuthAuthorizationServerOptions()
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"), // Endereco de acesso do Token
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(1), // Tempo em que o token permanecerá ativo
+                Provider = new AcessTokenProvider()
+            };
+
+            app.UseOAuthAuthorizationServer(TokensConfigurationOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
         }
     }
 }
