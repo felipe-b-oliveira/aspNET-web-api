@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using App.Domain;
+using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using webApp.Models;
 using System.Web.Http.Cors;
+using webApp.Models;
 
 namespace webApp.Controllers
 {

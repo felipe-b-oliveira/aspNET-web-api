@@ -1,13 +1,7 @@
-﻿using System;
+﻿using App.Domain;
+using App.Repository;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Hosting;
-using System.IO;
-using Newtonsoft.Json;
-using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
 
 namespace webApp.Models
 {
