@@ -11,28 +11,28 @@ namespace webApp.Controllers
     public class StudentController : ApiController
     {
         // GET: api/Student
-        public IEnumerable<Students> Get()
+        public IEnumerable<Student> Get()
         {
-            Students student = new Students();
+            Student student = new Student();
 
-            return student.studentsList();
+            return student.ReadStudent();
         }
 
         // GET: api/Student/5
-        public Students Get(int id)
+        public Student Get(int id)
         {
-            Students student = new Students();
+            Student student = new Student();
 
-            return student.studentsList().Where(x => x.Id == id).FirstOrDefault();
+            return student.ReadStudent().Where(x => x.Id == id).FirstOrDefault();
         }
 
         // POST: api/Student
-        public List<Students> Post(Students student)
+        public List<Student> Post(Student student)
         {
-            List<Students> studentList = new List<Students>();
-            studentList.Add(student);
+            Student _student = new Student();
+            _student.CreateStudent(student);
 
-            return studentList;
+            return _student.ReadStudent();
         }
 
         // PUT: api/Student/5
