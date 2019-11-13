@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Newtonsoft.Json.Serialization;
 using Owin;
+using Swashbuckle.Application;
 
 [assembly: OwinStartup(typeof(webApp.Startup))]
 
@@ -27,7 +28,16 @@ namespace webApp
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.EnableSwagger(c => {
+
+                c.SingleApiVersion("v1", "webApp");
+                c.IncludeXmlComments(AppDomain.CurrentDomain.BaseDirectory + @"\bin\webApp.xml");
+
+            });
+
             app.UseCors(CorsOptions.AllowAll);
+
+            app.UseWebApi(config);
         }
     }
 }
