@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Hosting;
 using System.IO;
 using Newtonsoft.Json;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace webApp.Models
 {
@@ -23,6 +25,46 @@ namespace webApp.Models
             var filePath = HostingEnvironment.MapPath(@"~/App_Data\Base.json");
             var json = File.ReadAllText(filePath);
             var studentsList = JsonConvert.DeserializeObject<List<Student>>(json);
+
+            return studentsList;
+        }
+
+
+        // Listar DB
+        public List<Student> ReadStudentsDB()
+        {
+
+            // Variaveis de conexão ao banco
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Projetos\CSharp\dotnetlearning\webApp\App_Data\Database.mdf;Integrated Security=True";
+            IDbConnection connection;
+            connection = new SqlConnection(connectionString);
+            
+            // Abre a conexão
+            connection.Open();
+
+            var studentsList = new List<Student>();
+
+            // Cria o comando
+            IDbCommand selectCmd = connection.CreateCommand();
+            selectCmd.CommandText = "SELECT * FROM Students";
+
+            // Executa o comando
+            IDataReader result = selectCmd.ExecuteReader();
+            while(result.Read())
+            {
+                var std = new Student();
+
+                std.Id = Convert.ToInt32(result["Id"]);
+                std.Name = Convert.ToString(result["Name"]);
+                std.LastName = Convert.ToString(result["LastName"]);
+                std.Phone = Convert.ToString(result["Phone"]);
+                std.Registry = Convert.ToInt32(result["Registry"]);
+
+                studentsList.Add(std);
+            }
+
+            // Fecha a conexao
+            connection.Close();
 
             return studentsList;
         }
