@@ -5,9 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using webApp.Models;
+using System.Web.Http.Cors;
 
 namespace webApp.Controllers
 {
+    // Liberar o acesso para o teste de funcionamento da API
+    [EnableCors("*", "*", "*")]
+
     public class StudentController : ApiController
     {
         // GET: api/Student
